@@ -1,0 +1,296 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------< fr.simulenfance:simul-enfance-backend >----------------
+[INFO] Building simul-enfance-backend 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.5.10:run (default-cli) > test-compile @ simul-enfance-backend >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ simul-enfance-backend ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 2 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ simul-enfance-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ simul-enfance-backend ---
+[INFO] skip non existing resourceDirectory /Users/dainata/projets/soutenance/simul-enfance-backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ simul-enfance-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.5.10:run (default-cli) < test-compile @ simul-enfance-backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.5.10:run (default-cli) @ simul-enfance-backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::               (v3.5.10)
+
+2026-02-08T06:41:55.449+01:00  INFO 33268 --- [simul-enfance-backend] [           main] c.m.tariffs.MunicipalTariffsApplication  : Starting MunicipalTariffsApplication using Java 17.0.16 with PID 33268 (/Users/dainata/projets/soutenance/simul-enfance-backend/target/classes started by dainata in /Users/dainata/projets/soutenance/simul-enfance-backend)
+2026-02-08T06:41:55.452+01:00 DEBUG 33268 --- [simul-enfance-backend] [           main] c.m.tariffs.MunicipalTariffsApplication  : Running with Spring Boot v3.5.10, Spring v6.2.15
+2026-02-08T06:41:55.453+01:00  INFO 33268 --- [simul-enfance-backend] [           main] c.m.tariffs.MunicipalTariffsApplication  : The following 1 profile is active: "dev"
+2026-02-08T06:41:55.849+01:00  INFO 33268 --- [simul-enfance-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-08T06:41:55.897+01:00  INFO 33268 --- [simul-enfance-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 41 ms. Found 5 JPA repository interfaces.
+2026-02-08T06:41:56.487+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-08T06:41:56.499+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-08T06:41:56.499+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-02-08T06:41:56.539+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-08T06:41:56.540+01:00  INFO 33268 --- [simul-enfance-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1051 ms
+2026-02-08T06:41:56.605+01:00 DEBUG 33268 --- [simul-enfance-backend] [           main] com.municipal.security.JwtFilter         : Filter 'jwtFilter' configured for use
+2026-02-08T06:41:56.700+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-08T06:41:56.734+01:00  INFO 33268 --- [simul-enfance-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.41.Final
+2026-02-08T06:41:56.759+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-08T06:41:56.974+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-08T06:41:56.997+01:00  INFO 33268 --- [simul-enfance-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-08T06:41:57.232+01:00  INFO 33268 --- [simul-enfance-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3ea84e01
+2026-02-08T06:41:57.234+01:00  INFO 33268 --- [simul-enfance-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-08T06:41:57.260+01:00  WARN 33268 --- [simul-enfance-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-08T06:41:57.276+01:00  INFO 33268 --- [simul-enfance-backend] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 17.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-08T06:41:58.069+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-08T06:41:58.157+01:00  INFO 33268 --- [simul-enfance-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-08T06:41:58.404+01:00  INFO 33268 --- [simul-enfance-backend] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-02-08T06:41:58.404+01:00  WARN 33268 --- [simul-enfance-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2026-02-08T06:41:58.453+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-08T06:41:58.786+01:00  WARN 33268 --- [simul-enfance-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-08T06:41:59.326+01:00  INFO 33268 --- [simul-enfance-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-08T06:41:59.336+01:00  INFO 33268 --- [simul-enfance-backend] [           main] c.m.tariffs.MunicipalTariffsApplication  : Started MunicipalTariffsApplication in 4.22 seconds (process running for 4.518)
+2026-02-08T06:42:31.027+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-08T06:42:31.027+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-02-08T06:42:31.028+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-02-08T06:42:31.166+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-1] c.m.controller.CalculationController     : Requête de calcul reçue : CalculationRequest(cityId=3, serviceType=REPAS, quotientFamilial=1770.0, childrenCount=null)
+2026-02-08T06:42:31.170+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-1] com.municipal.service.PricingService     : Calcul du tarif pour ville=3, service=REPAS, QF=1770.0, enfants=1
+2026-02-08T06:42:31.234+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        cr1_0.id,
+        cr1_0.calculation_type,
+        cr1_0.city_id,
+        c1_0.id,
+        c1_0.name,
+        c1_0.postal_code,
+        cr1_0.is_active,
+        cr1_0.price_max,
+        cr1_0.price_min,
+        cr1_0.service_type 
+    from
+        calculation_rules cr1_0 
+    join
+        cities c1_0 
+            on c1_0.id=cr1_0.city_id 
+    where
+        c1_0.id=? 
+        and cr1_0.service_type=? 
+        and cr1_0.is_active=true
+Hibernate: 
+    select
+        cr1_0.id,
+        cr1_0.calculation_type,
+        cr1_0.city_id,
+        c1_0.id,
+        c1_0.name,
+        c1_0.postal_code,
+        cr1_0.is_active,
+        cr1_0.price_max,
+        cr1_0.price_min,
+        cr1_0.service_type 
+    from
+        calculation_rules cr1_0 
+    join
+        cities c1_0 
+            on c1_0.id=cr1_0.city_id 
+    where
+        c1_0.id=? 
+        and cr1_0.service_type=? 
+        and cr1_0.is_active=true
+2026-02-08T06:42:31.265+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-1] org.hibernate.SQL                        : 
+    select
+        pb1_0.calculation_rule_id,
+        pb1_0.id,
+        pb1_0.bracket_category,
+        pb1_0.description,
+        pb1_0.display_order,
+        pb1_0.fixed_price,
+        pb1_0.qf_max,
+        pb1_0.qf_min 
+    from
+        price_brackets pb1_0 
+    where
+        pb1_0.calculation_rule_id=?
+Hibernate: 
+    select
+        pb1_0.calculation_rule_id,
+        pb1_0.id,
+        pb1_0.bracket_category,
+        pb1_0.description,
+        pb1_0.display_order,
+        pb1_0.fixed_price,
+        pb1_0.qf_max,
+        pb1_0.qf_min 
+    from
+        price_brackets pb1_0 
+    where
+        pb1_0.calculation_rule_id=?
+2026-02-08T06:42:31.273+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-1] com.municipal.service.PricingService     : Tranche trouvée : [942.00 - 999999.99] → 6.56€ - Catégorie: A
+2026-02-08T06:42:31.274+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-1] com.municipal.service.PricingService     : Tarif calculé : 6.56€/h (1049.60€/mois) - Catégorie: A
+2026-02-08T06:42:40.965+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-2] c.m.controller.CalculationController     : Requête de calcul reçue : CalculationRequest(cityId=3, serviceType=ACCUEIL_SOIR, quotientFamilial=1770.0, childrenCount=null)
+2026-02-08T06:42:40.966+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-2] com.municipal.service.PricingService     : Calcul du tarif pour ville=3, service=ACCUEIL_SOIR, QF=1770.0, enfants=1
+2026-02-08T06:42:40.967+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        cr1_0.id,
+        cr1_0.calculation_type,
+        cr1_0.city_id,
+        c1_0.id,
+        c1_0.name,
+        c1_0.postal_code,
+        cr1_0.is_active,
+        cr1_0.price_max,
+        cr1_0.price_min,
+        cr1_0.service_type 
+    from
+        calculation_rules cr1_0 
+    join
+        cities c1_0 
+            on c1_0.id=cr1_0.city_id 
+    where
+        c1_0.id=? 
+        and cr1_0.service_type=? 
+        and cr1_0.is_active=true
+Hibernate: 
+    select
+        cr1_0.id,
+        cr1_0.calculation_type,
+        cr1_0.city_id,
+        c1_0.id,
+        c1_0.name,
+        c1_0.postal_code,
+        cr1_0.is_active,
+        cr1_0.price_max,
+        cr1_0.price_min,
+        cr1_0.service_type 
+    from
+        calculation_rules cr1_0 
+    join
+        cities c1_0 
+            on c1_0.id=cr1_0.city_id 
+    where
+        c1_0.id=? 
+        and cr1_0.service_type=? 
+        and cr1_0.is_active=true
+2026-02-08T06:42:40.970+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-2] org.hibernate.SQL                        : 
+    select
+        pb1_0.calculation_rule_id,
+        pb1_0.id,
+        pb1_0.bracket_category,
+        pb1_0.description,
+        pb1_0.display_order,
+        pb1_0.fixed_price,
+        pb1_0.qf_max,
+        pb1_0.qf_min 
+    from
+        price_brackets pb1_0 
+    where
+        pb1_0.calculation_rule_id=?
+Hibernate: 
+    select
+        pb1_0.calculation_rule_id,
+        pb1_0.id,
+        pb1_0.bracket_category,
+        pb1_0.description,
+        pb1_0.display_order,
+        pb1_0.fixed_price,
+        pb1_0.qf_max,
+        pb1_0.qf_min 
+    from
+        price_brackets pb1_0 
+    where
+        pb1_0.calculation_rule_id=?
+2026-02-08T06:42:40.972+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-2] com.municipal.service.PricingService     : Tranche trouvée : [942.00 - 999999.99] → 4.48€ - Catégorie: A
+2026-02-08T06:42:40.972+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-2] com.municipal.service.PricingService     : Tarif calculé : 4.48€/h (716.80€/mois) - Catégorie: A
+2026-02-08T06:42:49.353+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-4] c.m.controller.CalculationController     : Requête de calcul reçue : CalculationRequest(cityId=1, serviceType=CRECHE, quotientFamilial=1500.0, childrenCount=2)
+2026-02-08T06:42:49.354+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-4] com.municipal.service.PricingService     : Calcul du tarif pour ville=1, service=CRECHE, QF=1500.0, enfants=2
+2026-02-08T06:42:49.355+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        cr1_0.id,
+        cr1_0.calculation_type,
+        cr1_0.city_id,
+        c1_0.id,
+        c1_0.name,
+        c1_0.postal_code,
+        cr1_0.is_active,
+        cr1_0.price_max,
+        cr1_0.price_min,
+        cr1_0.service_type 
+    from
+        calculation_rules cr1_0 
+    join
+        cities c1_0 
+            on c1_0.id=cr1_0.city_id 
+    where
+        c1_0.id=? 
+        and cr1_0.service_type=? 
+        and cr1_0.is_active=true
+Hibernate: 
+    select
+        cr1_0.id,
+        cr1_0.calculation_type,
+        cr1_0.city_id,
+        c1_0.id,
+        c1_0.name,
+        c1_0.postal_code,
+        cr1_0.is_active,
+        cr1_0.price_max,
+        cr1_0.price_min,
+        cr1_0.service_type 
+    from
+        calculation_rules cr1_0 
+    join
+        cities c1_0 
+            on c1_0.id=cr1_0.city_id 
+    where
+        c1_0.id=? 
+        and cr1_0.service_type=? 
+        and cr1_0.is_active=true
+2026-02-08T06:42:49.357+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-4] org.hibernate.SQL                        : 
+    select
+        tec1_0.calculation_rule_id,
+        tec1_0.id,
+        tec1_0.description,
+        tec1_0.effort_rate,
+        tec1_0.number_of_children 
+    from
+        taux_effort_configs tec1_0 
+    where
+        tec1_0.calculation_rule_id=?
+Hibernate: 
+    select
+        tec1_0.calculation_rule_id,
+        tec1_0.id,
+        tec1_0.description,
+        tec1_0.effort_rate,
+        tec1_0.number_of_children 
+    from
+        taux_effort_configs tec1_0 
+    where
+        tec1_0.calculation_rule_id=?
+2026-02-08T06:42:49.360+01:00 DEBUG 33268 --- [simul-enfance-backend] [nio-8080-exec-4] com.municipal.service.PricingService     : Calcul PSU : 1500.0 × 0.0005 = 0.75
+2026-02-08T06:42:49.361+01:00  INFO 33268 --- [simul-enfance-backend] [nio-8080-exec-4] com.municipal.service.PricingService     : Tarif calculé : 0.75€/h (120.00€/mois) - Catégorie: null
+2026-02-08T06:43:20.058+01:00  INFO 33268 --- [simul-enfance-backend] [ionShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown        : Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-08T06:43:20.066+01:00  INFO 33268 --- [simul-enfance-backend] [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown        : Graceful shutdown complete
+2026-02-08T06:43:20.071+01:00  INFO 33268 --- [simul-enfance-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-08T06:43:20.072+01:00  INFO 33268 --- [simul-enfance-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-08T06:43:20.074+01:00  INFO 33268 --- [simul-enfance-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
