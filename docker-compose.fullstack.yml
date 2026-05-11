@@ -1,0 +1,88 @@
+# ============================================
+# Docker Compose - Full Stack Simul'Enfance
+# PostgreSQL + Backend Spring Boot + Frontend Angular
+# ============================================
+version: '3.8'
+
+services:
+  # ==========================================
+  # BASE DE DONNÉES PostgreSQL
+  # ==========================================
+  postgres:
+    image: postgres:16-alpine
+    container_name: simul_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ${DB_NAME:-municipal_tariffs}
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - simul-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==========================================
+  # BACKEND Spring Boot
+  # ==========================================
+  backend:
+    build:
+      context: ./simul-enfance-backend
+      dockerfile: Dockerfile
+    container_name: simul_backend
+    restart: always
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/${DB_NAME:-municipal_tariffs}
+      SPRING_DATASOURCE_USERNAME: ${DB_USER:-postgres}
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD:-postgres}
+      JWT_SECRET: ${JWT_SECRET:-MyDefaultSecretKeyForDevelopmentOnly123456789}
+    ports:
+      - "8080:8080"
+    networks:
+      - simul-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "--quiet", "http://localhost:8080/api/auth/login"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # ==========================================
+  # FRONTEND Angular + Nginx
+  # ==========================================
+  frontend:
+    build:
+      context: ./simul-enfance-frontend
+      dockerfile: Dockerfile
+    container_name: simul_frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    networks:
+      - simul-network
+
+# ==========================================
+# RÉSEAUX
+# ==========================================
+networks:
+  simul-network:
+    driver: bridge
+
+# ==========================================
+# VOLUMES PERSISTANTS
+# ==========================================
+volumes:
+  postgres_data:
+    driver: local
