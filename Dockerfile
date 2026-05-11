@@ -34,4 +34,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=60s \
   CMD wget --no-verbose --tries=1 --spider http://localhost:8080/api/auth/login || exit 1
 
 # Démarrage de l'application
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "app.jar", "--spring.profiles.active=docker"]
