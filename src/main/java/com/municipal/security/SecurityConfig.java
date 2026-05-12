@@ -1,17 +1,14 @@
 package com.municipal.security;
 
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,7 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import java.util.List;
 
 /**
  * Configuration centrale de Spring Security pour l'application.
@@ -41,22 +38,19 @@ import java.util.Arrays;
  *            (utilisateur authentifié)            (traitement métier)
  * 
  * Règles d'accès définies :
- * - /api/auth/** : Accessible à tous (login, register)
- * - /api/admin/** : Réservé aux ROLE_ADMIN uniquement
- * - /api/user/** : Accessible aux utilisateurs authentifiés
+ * - /auth/** : Accessible à tous (login, register)
+ * - /api/** : Réservé aux ROLE_USER ou ROLE_ADMIN
  * - Toutes les autres routes : Authentification requise
  */
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity  // Active les annotations @PreAuthorize, @Secured, etc.
-@RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Value("${allowCorsOrigin:http://localhost:4200}")
+    @Value("${allowCorsOrigin}")
     private String allowCorsOrigin;
     
-    private final JwtFilter jwtFilter;
-    private final UserDetailsServiceImpl userDetailsService;
+    @Autowired
+    private JwtFilter jwtFilter;
     
     /**
      * Configuration principale de la sécurité HTTP.
@@ -68,32 +62,31 @@ public class SecurityConfig {
      * @return La chaîne de filtres de sécurité configurée
      */
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 // Désactivation de CSRF car nous utilisons JWT (tokens stateless)
                 // CSRF est surtout utile pour les sessions avec cookies
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(csrf -> csrf.disable())
+                
+                // Désactivation de HTTP Basic (nous utilisons uniquement JWT)
+                .httpBasic(httpBasic -> httpBasic.disable())
+                
+                // Désactivation de Form Login (nous utilisons uniquement JWT)
+                .formLogin(formLogin -> formLogin.disable())
                 
                 // Configuration CORS
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 
                 // Configuration des autorisations par route
                 .authorizeHttpRequests(auth -> auth
+                        // CORS preflight : autoriser toutes les requêtes OPTIONS sans authentification
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                        
                         // Routes publiques : login et inscription accessibles sans authentification
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/auth/**").permitAll()
                         
-                        // Routes de calcul et villes accessibles publiquement (pour le frontend)
-                        .requestMatchers("/api/calculate/**", "/api/cities/**", "/api/pricing/**").permitAll()
-                        
-                        // Routes de nettoyage et initialisation accessibles publiquement (temporaire pour développement)
-                        .requestMatchers("/api/simulations/cleanup", "/api/simulations/remove-duplicates").permitAll()
-                        .requestMatchers("/api/admin/init-mercredi-perreux", "/api/admin/init-restauration-perreux").permitAll()  // Init des données
-                        
-                        // Routes admin : réservées aux utilisateurs avec le rôle ROLE_ADMIN
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        
-                        // Routes utilisateur : accessibles à tous les utilisateurs authentifiés
-                        .requestMatchers("/api/user/**", "/api/users/**", "/api/simulations/**").authenticated()
+                        // Routes admin : réservées aux utilisateurs avec ROLE_ADMIN
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         
                         // Toutes les autres routes nécessitent une authentification
                         .anyRequest().authenticated()
@@ -102,16 +95,10 @@ public class SecurityConfig {
                 // Configuration de la gestion des sessions
                 // STATELESS : Aucune session HTTP n'est créée (tout repose sur le token JWT)
                 // Chaque requête est indépendante et doit fournir un token valide
-                .sessionManagement(session -> 
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                
-                // Configuration du provider d'authentification personnalisé
-                .authenticationProvider(authenticationProvider())
-                
-                // Ajout du filtre JWT AVANT le filtre d'authentification standard
-                // Ordre d'exécution : JwtFilter → UsernamePasswordAuthenticationFilter → Controller
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+        
+        // Ajout du filtre JWT AVANT le filtre d'authentification standard
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }
@@ -128,16 +115,15 @@ public class SecurityConfig {
      * @return La source de configuration CORS
      */
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(allowCorsOrigin.split(",")));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "X-Requested-With"));
-        configuration.setAllowCredentials(true);
-        configuration.setMaxAge(3600L);
-        
+    public UrlBasedCorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(List.of(allowCorsOrigin));
+        config.setAllowedMethods(List.of("*"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", config);
         return source;
     }
     
@@ -159,26 +145,6 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-    
-    /**
-     * Provider d'authentification qui combine UserDetailsService et PasswordEncoder.
-     * 
-     * Processus d'authentification lors du login :
-     * 1. AuthenticationManager reçoit email + password
-     * 2. DaoAuthenticationProvider charge l'utilisateur via UserDetailsService
-     * 3. Compare le password fourni avec celui en base (après encodage BCrypt)
-     * 4. Si OK → Retourne Authentication avec les roles
-     *    Si KO → Lance une exception BadCredentialsException
-     * 
-     * @return Le provider d'authentification configuré
-     */
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
     }
     
     /**

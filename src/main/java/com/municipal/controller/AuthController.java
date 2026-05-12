@@ -19,9 +19,8 @@ import org.springframework.web.bind.annotation.*;
  * Ces endpoints sont publics (pas d'authentification requise).
  */
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "*") // À configurer selon vos besoins CORS
 public class AuthController {
     
     private final AuthService authService;

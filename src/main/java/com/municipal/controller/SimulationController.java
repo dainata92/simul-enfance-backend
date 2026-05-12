@@ -17,7 +17,7 @@ import java.util.List;
  * Contrôleur pour la gestion des simulations.
  */
 @RestController
-@RequestMapping("/api/simulations")
+@RequestMapping("/simulations")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class SimulationController {

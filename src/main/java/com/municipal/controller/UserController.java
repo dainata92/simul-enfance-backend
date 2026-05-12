@@ -27,13 +27,13 @@ public class UserController {
     /**
      * Récupère les informations d'un utilisateur par son ID.
      * 
-     * GET /api/users/{id}
+     * GET /users/{id}
      * Header : Authorization: Bearer <token>
      * 
      * @param id L'ID de l'utilisateur
      * @return Les informations de l'utilisateur
      */
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
@@ -41,7 +41,7 @@ public class UserController {
     /**
      * Met à jour le profil d'un utilisateur.
      *
-     * PUT /api/users/{id}
+     * PUT /users/{id}
      * Header : Authorization: Bearer <token>
      *
      * Accessible au propriétaire du profil ou à un admin.
@@ -50,7 +50,7 @@ public class UserController {
      * @param request Les données de mise à jour
      * @return Les informations mises à jour de l'utilisateur
      */
-    @PutMapping("/api/users/{id}")
+    @PutMapping("/users/{id}")
     @PreAuthorize("@userSecurityService.isOwner(#id, authentication.principal.username) or hasRole('ADMIN')")
     public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest request) {
         return ResponseEntity.ok(userService.updateUser(id, request));
@@ -59,13 +59,13 @@ public class UserController {
     /**
      * Récupère les informations du profil de l'utilisateur connecté.
      * 
-     * GET /api/user/profile
+     * GET /user/profile
      * Header : Authorization: Bearer <token>
      * 
      * @param userDetails Les détails de l'utilisateur authentifié (injecté automatiquement)
      * @return Les informations du profil
      */
-    @GetMapping("/api/user/profile")
+    @GetMapping("/user/profile")
     public ResponseEntity<?> getProfile(@AuthenticationPrincipal UserDetails userDetails) {
         return ResponseEntity.ok()
                 .body("Profil de l'utilisateur : " + userDetails.getUsername() + 
@@ -75,12 +75,12 @@ public class UserController {
     /**
      * Exemple d'endpoint protégé accessible à l'utilisateur connecté.
      * 
-     * GET /api/user/{userId}
+     * GET /user/{userId}
      * 
      * Note : Pour vérifier que l'utilisateur accède uniquement à ses propres données,
      * vous pouvez ajouter une validation dans la méthode.
      */
-    @GetMapping("/api/user/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<?> getUserData(@PathVariable Long userId) {
         return ResponseEntity.ok()
                 .body("Données de l'utilisateur " + userId);

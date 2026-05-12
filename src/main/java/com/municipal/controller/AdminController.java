@@ -16,11 +16,11 @@ import java.util.List;
 /**
  * Contrôleur pour les endpoints administrateur.
  * 
- * Routes /api/admin/** accessibles uniquement aux utilisateurs avec ROLE_ADMIN.
+ * Routes /admin/** accessibles uniquement aux utilisateurs avec ROLE_ADMIN.
  * L'accès est contrôlé par SecurityConfig (hasRole("ADMIN")).
  */
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/admin")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 @Slf4j
