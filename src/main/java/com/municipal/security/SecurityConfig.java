@@ -85,6 +85,9 @@ public class SecurityConfig {
                         // Routes publiques : login et inscription accessibles sans authentification
                         .requestMatchers("/auth/**").permitAll()
                         
+                        // Routes publiques : calculateur et liste des villes accessibles sans authentification
+                        .requestMatchers("/cities/**", "/calculate/**").permitAll()
+                        
                         // Routes admin : réservées aux utilisateurs avec ROLE_ADMIN
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         

@@ -12,11 +12,11 @@ import java.util.List;
  * Controller REST pour gérer les villes.
  * 
  * Endpoints :
- * - GET /api/cities : Récupère toutes les villes
- * - GET /api/cities/{id} : Récupère une ville par son ID
+ * - GET /cities : Récupère toutes les villes
+ * - GET /cities/{id} : Récupère une ville par son ID
  */
 @RestController
-@RequestMapping("/api/cities")
+@RequestMapping("/cities")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class CityController {
