@@ -22,8 +22,7 @@ WORKDIR /app
 # Copie du JAR depuis l'étape de build
 COPY --from=build /app/target/*.jar app.jar
 
-# Variables d'environnement (surchargées au démarrage)
-ENV SPRING_PROFILES_ACTIVE=prod
+# Variables d'environnement (surchargées par Render au démarrage)
 ENV SERVER_PORT=8080
 
 # Exposition du port
@@ -34,4 +33,5 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=60s \
   CMD wget --no-verbose --tries=1 --spider http://localhost:8080/api/auth/login || exit 1
 
 # Démarrage de l'application
-CMD ["java", "-jar", "app.jar", "--spring.profiles.active=docker"]
+# Le profil Spring est défini par la variable SPRING_PROFILES_ACTIVE sur Render
+CMD ["java", "-jar", "app.jar"]
