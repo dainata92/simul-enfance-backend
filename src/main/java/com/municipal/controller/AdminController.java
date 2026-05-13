@@ -1,5 +1,6 @@
 package com.municipal.controller;
 
+import com.municipal.dto.UserDTO;
 import com.municipal.entity.*;
 import com.municipal.repository.CalculationRuleRepository;
 import com.municipal.repository.CityRepository;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Contrôleur pour les endpoints administrateur.
@@ -37,11 +39,14 @@ public class AdminController {
      * GET /api/admin/users
      * Header : Authorization: Bearer <token>
      * 
-     * @return La liste de tous les utilisateurs
+     * @return La liste de tous les utilisateurs (avec le champ 'name' calculé)
      */
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userRepository.findAll());
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userRepository.findAll().stream()
+                .map(UserDTO::fromEntity)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(users);
     }
     
     /**

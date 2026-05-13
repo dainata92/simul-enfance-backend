@@ -96,6 +96,8 @@ public class AuthService {
         response.setEmail(user.getEmail());
         response.setRole(user.getRole().name());
         response.setId(user.getId());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
         response.setName(fullName);
         response.setProfilePicture(user.getProfilePicture());
         return response;
@@ -144,6 +146,8 @@ public class AuthService {
         response.setEmail(user.getEmail());
         response.setRole(user.getRole().name());
         response.setId(user.getId());
+        response.setFirstName(user.getFirstName());
+        response.setLastName(user.getLastName());
         response.setName(fullName);        response.setProfilePicture(user.getProfilePicture());        return response;
     }
     

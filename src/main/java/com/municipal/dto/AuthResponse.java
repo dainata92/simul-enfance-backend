@@ -36,6 +36,16 @@ public class AuthResponse {
     private Long id;
     
     /**
+     * Prénom de l'utilisateur.
+     */
+    private String firstName;
+    
+    /**
+     * Nom de famille de l'utilisateur.
+     */
+    private String lastName;
+    
+    /**
      * Nom complet de l'utilisateur (prénom + nom).
      */
     private String name;
